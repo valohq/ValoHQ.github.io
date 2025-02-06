@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valorant Community Hub</title>
+    <style>
+        body {
+            font-family:Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Valorant Community Hub!</h1>
+        <nav>
+            <ul>
+                <li><a href="#attendance">Attendance</a></li>
+                <li><a href="#invite">Invite System</a></li>
+                <li><a href="#leaderboard">Leaderboard</a></li>
+                <li><a href="#match-history">Match History</a></li>
+                <li><a href="#memes">Meme Wall</a></li>
+                <li><a href="#challenges">Challenges</a></li>
+                <li><a href="#profiles">Profiles</a></li>
+                <li><a href="#events">Events</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Attendance System -->
+        <section id="attendance">
+            <h2>Attendance System</h2>
+            <p>Mark your presence for today's game:</p>
+            <button>Present</button>
+            <button>Absent</button>
+        </section>
+
+        <!-- Invite System -->
+        <section id="invite">
+            <h2>Invite System</h2>
+            <p>Send an invite to your friends:</p>
+            <form>
+                <label for="friend">Select a friend:</label>
+                <select id="friend" name="friend">
+                    <option value="friend1">Friend 1</option>
+                    <option value="friend2">Friend 2</option>
+                    <option value="friend3">Friend 3</option>
+                </select>
+                <button type="submit">Send Invite</button>
+            </form>
+        </section>
+
+        <!-- Daily Leaderboard -->
+        <section id="leaderboard">
+            <h2>Daily Leaderboard</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Kills</th>
+                        <th>Deaths</th>
+                        <th>Clutches</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Player 1</td>
+                        <td>25</td>
+                        <td>10</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Player 2</td>
+                        <td>20</td>
+                        <td>15</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Match History + Highlights -->
+        <section id="match-history">
+            <h2>Match History</h2>
+            <p>Log your matches and share highlights:</p>
+            <form>
+                <label for="match-result">Match Result:</label>
+                <select id="match-result" name="match-result">
+                    <option value="win">Win</option>
+                    <option value="loss">Loss</option>
+                </select>
+                <label for="screenshot">Upload Screenshot:</label>
+                <input type="file" id="screenshot" name="screenshot">
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+
+        <!-- Meme Wall -->
+        <section id="memes">
+            <h2>Meme Wall</h2>
+            <p>Share your funniest Valorant memes:</p>
+            <form>
+                <label for="meme">Upload Meme:</label>
+                <input type="file" id="meme" name="meme">
+                <button type="submit">Post</button>
+            </form>
+            <div>
+                <h3>Latest Memes</h3>
+                <img src="placeholder-meme1.jpg" alt="Meme 1">
+                <img src="placeholder-meme2.jpg" alt="Meme 2">
+            </div>
+        </section>
+
+        <!-- Custom Challenges -->
+        <section id="challenges">
+            <h2>Custom Challenges</h2>
+            <p>Complete these silly challenges:</p>
+            <ul>
+                <li>Win a round using only Sheriff.</li>
+                <li>Teabag 3 enemies in one match.</li>
+            </ul>
+        </section>
+
+        <!-- Custom Profiles -->
+        <section id="profiles">
+            <h2>Player Profiles</h2>
+            <div>
+                <h3>Player 1</h3>
+                <p>Favorite Agent: Jett</p>
+                <p>Kills: 100</p>
+                <p>Deaths: 50</p>
+            </div>
+            <div>
+                <h3>Player 2</h3>
+                <p>Favorite Agent: Reyna</p>
+                <p>Kills: 90</p>
+                <p>Deaths: 60</p>
+            </div>
+        </section>
+
+        <!-- Event Scheduler -->
+        <section id="events">
+            <h2>Event Scheduler</h2>
+            <p>Plan your next Valorant session:</p>
+            <form>
+                <label for="event-date">Date:</label>
+                <input type="date" id="event-date" name="event-date">
+                <label for="event-time">Time:</label>
+                <input type="time" id="event-time" name="event-time">
+                <button type="submit">Create Event</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>Made with ❤️ by Your Valorant Community</p>
+    </footer>
+</body>
+</html>
