@@ -395,7 +395,7 @@ tr:hover {
 
 .profile:hover .profile-inner {
     overflow: hidden;
-    transform: rotateY(10deg) translateZ(20px); /* Adjust transform */
+    transform: rotateY(5deg) translateZ(5px); /* Adjust transform */
     box-shadow: 0 5px 15px rgba(255, 70, 85, 0.2); /* Add shadow for depth */
 }
 
