@@ -393,7 +393,7 @@ tr:hover {
 }
 
 .profile:hover .profile-inner {
-    transform: rotateY(10deg) translateZ(20px); /* Adjust transform */
+    transform: rotateY(1deg) translateZ(2px); /* Adjust transform */
     box-shadow: 0 5px 15px rgba(255, 70, 85, 0.2); /* Add shadow for depth */
 }
 
