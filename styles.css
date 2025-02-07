@@ -22,7 +22,7 @@ a:hover {
 /* Header Styles */
 header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     padding: 10px 20px;
     background-color: #0f1923;
