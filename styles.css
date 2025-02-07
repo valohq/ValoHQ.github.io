@@ -1,1 +1,279 @@
+/* General Styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+a:hover {
+    color: #ff4655;
+}
+
+/* Header Styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #0f1923;
+    border-bottom: 2px solid #ff4655;
+    flex-wrap: wrap;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ff4655;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #0f1923;
+    flex-shrink: 0;
+}
+
+.search-bar {
+    flex: 1;
+    margin: 0 20px;
+    max-width: 400px;
+    min-width: 150px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #ff4655;
+    border-radius: 20px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.search-bar input::placeholder {
+    color: #888;
+}
+
+.login-button {
+    padding: 8px 16px;
+    background-color: #ff4655;
+    border: none;
+    border-radius: 20px;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.login-button:hover {
+    background-color: #e03e4d;
+}
+
+/* Navbar Styles */
+nav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #0f1923;
+    border-bottom: 2px solid #ff4655;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+nav a {
+    margin-right: 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Main Content Styles */
+main {
+    padding: 20px;
+    flex: 1;
+}
+
+/* Attendance Page */
+.attendance-list {
+    background-color: #0f1923;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+/* Invite System Page */
+.invite-form {
+    background-color: #0f1923;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.invite-form input {
+    padding: 8px;
+    margin: 5px 0;
+    border: 2px solid #ff4655;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.invite-form button {
+    padding: 8px 16px;
+    background-color: #ff4655;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* Leaderboard Page */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    background-color: #0f1923;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ff4655;
+}
+
+th {
+    background-color: #1a1a1a;
+}
+
+/* Match History Page */
+.match {
+    background-color: #0f1923;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+/* Meme Wall Page */
+.meme {
+    background-color: #0f1923;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.meme img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+/* Challenges Page */
+.challenge {
+    background-color: #0f1923;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+/* Profiles Page */
+.profile {
+    background-color: #0f1923;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+/* Events Page */
+.event {
+    background-color: #0f1923;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+/* Hall of Shame Page */
+.shame-entry {
+    background-color: #0f1923;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #0f1923;
+    border-top: 2px solid #ff4655;
+    margin-top: auto;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px;
+    }
+
+    .logo {
+        margin-bottom: 10px;
+        align-self: center;
+    }
+
+    .search-bar {
+        margin: 10px 0;
+        max-width: 100%;
+    }
+
+    .login-button {
+        align-self: center;
+        margin-top: 10px;
+    }
+
+    nav {
+        padding: 10px;
+    }
+
+    nav a {
+        margin-right: 15px;
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .search-bar input {
+        font-size: 12px;
+    }
+
+    .login-button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+}
