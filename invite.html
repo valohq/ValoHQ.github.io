@@ -32,48 +32,88 @@
         <h1>Invite System</h1>
         <div class="invite-form">
             <label for="invite-player">Invite Player:</label>
-            <input type="text" id="invite-player" placeholder="Enter Player#Tag">
+            <input type="text" id="invite-player" placeholder="Enter Player ID (e.g., GULAM E KALU)">
             <button id="sendInviteButton">Send Invite</button>
         </div>
-        <div class="notification" id="inviteNotification" style="display: none;"></div>
+        <div id="invitePrompt" class="invite-prompt" style="display: none;">
+            <p>PATTAGOBHI is inviting you to play Valorant!</p>
+            <button id="acceptInvite">Accept</button>
+            <button id="rejectInvite">Reject</button>
+        </div>
     </main>
 
     <footer>
         <p>Made with ❤️ by Your Valorant Community</p>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
     <script>
-        document.getElementById('sendInviteButton').addEventListener('click', async () => {
-            const playerTag = document.getElementById('invite-player').value;
-            if (!playerTag) {
-                alert('Please enter a player tag.');
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
+        // Current user ID (replace with actual user ID)
+        let currentUserId = "PATTAGOBHI";
+
+        // Send Invite
+        document.getElementById('sendInviteButton').addEventListener('click', () => {
+            const playerId = document.getElementById('invite-player').value;
+            if (!playerId) {
+                alert('Please enter a player ID.');
                 return;
             }
 
-            const notification = document.getElementById('inviteNotification');
-            notification.textContent = 'Sending invite...';
-            notification.style.display = 'block';
-
-            try {
-                const response = await fetch('/send-invite', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ player: playerTag }),
-                });
-                const result = await response.json();
-                notification.textContent = result.message || 'Invite sent successfully!';
-            } catch (error) {
+            // Send invite to Firestore
+            db.collection('invites').add({
+                from: currentUserId,
+                to: playerId,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                alert('Invite sent to ' + playerId);
+            }).catch((error) => {
                 console.error('Error sending invite:', error);
-                notification.textContent = 'Failed to send invite. Please try again.';
-            }
-
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
+            });
         });
+
+        // Listen for Invites
+        db.collection('invites')
+            .where('to', '==', currentUserId)
+            .onSnapshot((snapshot) => {
+                snapshot.docChanges().forEach((change) => {
+                    if (change.type === 'added') {
+                        const invite = change.doc.data();
+                        showInvitePrompt(invite.from);
+                    }
+                });
+            });
+
+        // Show Invite Prompt
+        function showInvitePrompt(from) {
+            const prompt = document.getElementById('invitePrompt');
+            prompt.style.display = 'block';
+            prompt.querySelector('p').textContent = `${from} is inviting you to play Valorant!`;
+
+            document.getElementById('acceptInvite').addEventListener('click', () => {
+                alert('You accepted the invite from ' + from);
+                prompt.style.display = 'none';
+            });
+
+            document.getElementById('rejectInvite').addEventListener('click', () => {
+                alert('You rejected the invite from ' + from);
+                prompt.style.display = 'none';
+            });
+        }
     </script>
-    <script src="app.js"></script>
 </body>
 </html>
