@@ -383,6 +383,7 @@ tr:hover {
 }
 
 .profile-inner {
+    overflow: hidden;
     position: relative;
     transition: transform 0.6s;
     transform-style: preserve-3d;
