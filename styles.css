@@ -376,19 +376,25 @@ tr:hover {
     transform: scale(1.02);
 }
 
-/* Profile card flip effect */
+/* Profile card tilt effect */
 .profile {
     perspective: 1000px;
+    overflow: hidden; /* Ensure content stays within the card */
 }
 
 .profile-inner {
     position: relative;
     transition: transform 0.6s;
     transform-style: preserve-3d;
+    background-color: #0f1923;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
 }
 
 .profile:hover .profile-inner {
-    transform: rotateY(10deg);
+    transform: rotateY(10deg) translateZ(20px); /* Adjust transform */
+    box-shadow: 0 5px 15px rgba(255, 70, 85, 0.2); /* Add shadow for depth */
 }
 
 /* Loading animation (for future AJAX) */
