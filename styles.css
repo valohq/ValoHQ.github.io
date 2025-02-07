@@ -451,3 +451,31 @@ header {
         display: none;
     }
 }
+
+/* Invite Prompt */
+.invite-prompt {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #0f1923;
+    padding: 20px;
+    border: 2px solid #ff4655;
+    border-radius: 10px;
+    z-index: 1000;
+    text-align: center;
+}
+
+.invite-prompt button {
+    margin: 10px;
+    padding: 8px 16px;
+    background-color: #ff4655;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.invite-prompt button:hover {
+    background-color: #e03e4d;
+}
