@@ -83,7 +83,7 @@ header {
 /* Navbar Styles */
 nav {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     align-items: center;
     padding: 10px 20px;
     background-color: #0f1923;
