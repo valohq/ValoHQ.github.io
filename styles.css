@@ -401,7 +401,7 @@ tr:hover {
 
 /* Loading animation (for future AJAX) */
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to { transform: rotate(270deg); }
 }
 
 .loading-spinner {
