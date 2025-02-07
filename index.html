@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valorant Community Hub</title>
+    <title>ValoHQ</title>
     <style>
         /* General Styles */
         body {
@@ -31,6 +31,7 @@
             padding: 10px 20px;
             background-color: #0f1923;
             border-bottom: 2px solid #ff4655;
+            flex-wrap: wrap; /* Allow wrapping for smaller screens */
         }
 
         .logo {
@@ -44,12 +45,14 @@
             font-size: 20px;
             font-weight: bold;
             color: #0f1923;
+            flex-shrink: 0; /* Prevent logo from shrinking */
         }
 
         .search-bar {
             flex: 1;
             margin: 0 20px;
             max-width: 400px;
+            min-width: 150px; /* Ensure search bar doesn't get too small */
         }
 
         .search-bar input {
@@ -74,6 +77,7 @@
             color: #ffffff;
             font-size: 14px;
             cursor: pointer;
+            flex-shrink: 0; /* Prevent button from shrinking */
         }
 
         .login-button:hover {
@@ -88,6 +92,8 @@
             padding: 10px 20px;
             background-color: #0f1923;
             border-bottom: 2px solid #ff4655;
+            overflow-x: auto; /* Allow horizontal scrolling on small screens */
+            white-space: nowrap; /* Prevent wrapping of navbar items */
         }
 
         nav a {
@@ -114,6 +120,60 @@
             position: fixed;
             bottom: 0;
             width: 100%;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column; /* Stack items vertically on small screens */
+                align-items: stretch;
+                padding: 10px;
+            }
+
+            .logo {
+                margin-bottom: 10px; /* Add space below logo */
+                align-self: center; /* Center logo */
+            }
+
+            .search-bar {
+                margin: 10px 0; /* Adjust spacing */
+                max-width: 100%; /* Full width on small screens */
+            }
+
+            .login-button {
+                align-self: center; /* Center login button */
+                margin-top: 10px; /* Add space above button */
+            }
+
+            nav {
+                padding: 10px;
+            }
+
+            nav a {
+                margin-right: 15px; /* Reduce spacing between navbar items */
+                font-size: 14px; /* Smaller font size for mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .search-bar input {
+                font-size: 12px; /* Smaller font size for search bar */
+            }
+
+            .login-button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            nav a {
+                font-size: 12px; /* Smaller font size for navbar */
+            }
         }
     </style>
 </head>
@@ -152,7 +212,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>Made with ❤️ by Your Valorant Community</p>
+        <p>Made with ❤️ by Tahasarada</p>
     </footer>
 </body>
 </html>
