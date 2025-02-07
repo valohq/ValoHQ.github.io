@@ -3,34 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invite System</title>
+    <title>Invite System - Valorant Community Hub</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Invite System</h1>
-        <nav>
-            <a href="/index.html">Home</a>
-        </nav>
+        <div class="logo">V</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Find a player i.e Player#NA1">
+        </div>
+        <button class="login-button">Login</button>
     </header>
 
+    <nav>
+        <a href="/">Home</a>
+        <a href="/leaderboard.html">Leaderboard</a>
+        <a href="/hall-of-shame.html">Hall of Shame</a>
+        <a href="/invite.html">Invite System</a>
+        <a href="/attendance.html">Attendance</a>
+        <a href="/match-history.html">Match History</a>
+        <a href="/memes.html">Meme Wall</a>
+        <a href="/challenges.html">Challenges</a>
+        <a href="/profiles.html">Profiles</a>
+        <a href="/events.html">Events</a>
+    </nav>
+
     <main>
-        <div class="notification" style="display: none;">Invite Accepted!</div>
-        <p>Send an invite to your friends:</p>
-        <form>
-            <label for="friend">Select a friend:</label>
-            <select id="friend" name="friend">
-                <option value="friend1">Friend 1</option>
-                <option value="friend2">Friend 2</option>
-                <option value="friend3">Friend 3</option>
-            </select>
-            <button type="submit">Send Invite</button>
-        </form>
+        <h1>Invite System</h1>
+        <div class="invite-form">
+            <label for="invite-player">Invite Player:</label>
+            <input type="text" id="invite-player" placeholder="Enter Player#Tag">
+            <button id="sendInviteButton">Send Invite</button>
+        </div>
+        <div class="notification" id="inviteNotification" style="display: none;"></div>
     </main>
 
     <footer>
         <p>Made with ❤️ by Your Valorant Community</p>
     </footer>
+
+    <script>
+        document.getElementById('sendInviteButton').addEventListener('click', async () => {
+            const playerTag = document.getElementById('invite-player').value;
+            if (!playerTag) {
+                alert('Please enter a player tag.');
+                return;
+            }
+
+            const notification = document.getElementById('inviteNotification');
+            notification.textContent = 'Sending invite...';
+            notification.style.display = 'block';
+
+            try {
+                const response = await fetch('/send-invite', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ player: playerTag }),
+                });
+                const result = await response.json();
+                notification.textContent = result.message || 'Invite sent successfully!';
+            } catch (error) {
+                console.error('Error sending invite:', error);
+                notification.textContent = 'Failed to send invite. Please try again.';
+            }
+
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        });
+    </script>
     <script src="app.js"></script>
 </body>
 </html>
