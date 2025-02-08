@@ -12,7 +12,7 @@
         <div class="search-bar">
             <input type="text" placeholder="Find a player i.e Player#NA1">
         </div>
-        <button class="login-button">Login</button>
+        <button class="login-button" id="loginButton">Login</button>
     </header>
 
     <nav>
@@ -32,96 +32,36 @@
         <h1>Invite System</h1>
         <div class="invite-form">
             <label for="invite-player">Invite Player:</label>
-            <input type="text" id="invite-player" placeholder="Enter Player#Tag">
+            <input type="text" id="invite-player" placeholder="Enter Player ID (e.g., GULAM E KALU)">
             <button id="sendInviteButton">Send Invite</button>
         </div>
-        <div class="notification" id="inviteNotification" style="display: none;"></div>
+        <div id="invitePrompt" class="invite-prompt" style="display: none;">
+            <p><span id="inviteFrom"></span> is inviting you to play Valorant!</p>
+            <button id="acceptInvite">Accept</button>
+            <button id="rejectInvite">Reject</button>
+        </div>
     </main>
 
     <footer>
         <p>Made with ❤️ by Your Valorant Community</p>
     </footer>
- <!-- Firebase SDKs -->
- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
- <script>
-     // Invite System Logic
-     document.getElementById('sendInviteButton').addEventListener('click', async () => {
-         const playerId = document.getElementById('invite-player').value;
-         if (!playerId) {
-             alert('Please enter a player ID.');
-             return;
-         }
 
-         const db = firebase.firestore();
-         const currentUserId = 'PATTAGOBHI'; // Replace with actual user ID
-
-         // Send invite to Firestore
-         db.collection('invites').add({
-             from: currentUserId,
-             to: playerId,
-             timestamp: firebase.firestore.FieldValue.serverTimestamp()
-         }).then(() => {
-             alert('Invite sent to ' + playerId);
-         }).catch((error) => {
-             console.error('Error sending invite:', error);
-         });
-     });
-
-     // Listen for Invites
-     const currentUserId = 'GULAM E KALU'; // Replace with actual user ID
-     db.collection('invites')
-         .where('to', '==', currentUserId)
-         .onSnapshot((snapshot) => {
-             snapshot.docChanges().forEach((change) => {
-                 if (change.type === 'added') {
-                     const invite = change.doc.data();
-                     showInvitePrompt(invite.from);
-                 }
-             });
-         });
-
-     // Show Invite Prompt
-     function showInvitePrompt(from) {
-         const prompt = document.getElementById('invitePrompt');
-         prompt.style.display = 'block';
-         document.getElementById('inviteFrom').textContent = from;
-
-         document.getElementById('acceptInvite').addEventListener('click', () => {
-             alert('You accepted the invite from ' + from);
-             prompt.style.display = 'none';
-         });
-
-         document.getElementById('rejectInvite').addEventListener('click', () => {
-             alert('You rejected the invite from ' + from);
-             prompt.style.display = 'none';
-         });
-     }
- </script>
-    <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyAn_zNl4kzmMIXPjG0EE9IJTUwPEXK_mL8",
-    authDomain: "valohq.firebaseapp.com",
-    projectId: "valohq",
-    storageBucket: "valohq.firebasestorage.app",
-    messagingSenderId: "368885437583",
-    appId: "1:368885437583:web:7124c203a9466cfc25ccfa",
-    measurementId: "G-FQRMHJ06YQ"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <!-- Your JavaScript -->
     <script src="scripts.js"></script>
+    <script>
+        // Add event listeners for invite system
+        document.getElementById('sendInviteButton').addEventListener('click', () => {
+            const playerId = document.getElementById('invite-player').value;
+            if (!playerId) {
+                alert('Please enter a player ID.');
+                return;
+            }
+            sendInvite(playerId);
+        });
+    </script>
 </body>
 </html>
