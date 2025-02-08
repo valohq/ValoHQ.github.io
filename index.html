@@ -4,135 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valorant Community Hub</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #1a1a1a;
-            color: #ffffff;
-        }
-
-        a {
-            text-decoration: none;
-            color: #ffffff;
-        }
-
-        a:hover {
-            color: #ff4655;
-        }
-
-        /* Header Styles */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #0f1923;
-            border-bottom: 2px solid #ff4655;
-        }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #ff4655;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            font-weight: bold;
-            color: #0f1923;
-        }
-
-        .search-bar {
-            flex: 1;
-            margin: 0 20px;
-            max-width: 400px;
-        }
-
-        .search-bar input {
-            width: 100%;
-            padding: 8px;
-            border: 2px solid #ff4655;
-            border-radius: 20px;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            font-size: 14px;
-        }
-
-        .search-bar input::placeholder {
-            color: #888;
-        }
-
-        .login-button {
-            padding: 8px 16px;
-            background-color: #ff4655;
-            border: none;
-            border-radius: 20px;
-            color: #ffffff;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .login-button:hover {
-            background-color: #e03e4d;
-        }
-
-        /* Navbar Styles */
-        nav {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #0f1923;
-            border-bottom: 2px solid #ff4655;
-        }
-
-        nav a {
-            margin-right: 20px;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            color: #ff4655;
-        }
-
-        /* Main Content Styles */
-        main {
-            padding: 20px;
-        }
-
-        /* Footer Styles */
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #0f1923;
-            border-top: 2px solid #ff4655;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
     <header>
-        <!-- Logo -->
         <div class="logo">V</div>
-        <!-- Search Bar -->
         <div class="search-bar">
             <input type="text" placeholder="Find a player i.e Player#NA1">
         </div>
-        <!-- Login Button -->
-        <button class="login-button">Login</button>
+        <button class="login-button" id="loginButton">Login</button>
     </header>
 
-    <!--loading spinner-->
-    <div class="loading-spinner"></div>
-    <!-- Navbar -->
     <nav>
         <a href="/">Home</a>
         <a href="/leaderboard.html">Leaderboard</a>
@@ -146,20 +28,28 @@
         <a href="/events.html">Events</a>
     </nav>
 
-    <!-- Main Content -->
     <main>
         <h1>Welcome to the Valorant Community Hub!</h1>
         <p>This is the homepage of your Valorant community website. Use the navigation above to explore features!</p>
     </main>
 
-    <!-- Footer -->
     <footer>
         <p>Made with ❤️ by Your Valorant Community</p>
     </footer>
-        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-        <script src="scripts.js"></script>
-        
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <!-- Your JavaScript -->
+    <script src="scripts.js"></script>
+    <script>
+        // Add event listeners for authentication
+        document.getElementById('loginButton').addEventListener('click', () => {
+            const email = 'test@example.com'; // Replace with user input
+            const password = 'password123'; // Replace with user input
+            signIn(email, password);
+        });
+    </script>
 </body>
 </html>
