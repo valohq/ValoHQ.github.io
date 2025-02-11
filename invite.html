@@ -61,6 +61,17 @@
             sendInvite(playerId);
         });
     </script>
+    <!--event listener added-->
+<script>
+    document.getElementById('sendInviteButton').addEventListener('click', () => {
+        const playerId = document.getElementById('invite-player').value;
+        if (!playerId) {
+            alert('Please enter a player ID.');
+            return;
+        }
+        sendInvite(playerId); // Call the sendInvite function
+    });
+</script>
     <script src="scripts.js"></script>
 </body>
 </html>
