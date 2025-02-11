@@ -42,11 +42,31 @@
     <footer>
         <p>Made with ❤️ by Your Valorant Community</p>
     </footer>
+ <!--firebase sdk latest version-->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, doc, setDoc, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    // Firebase Configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAn_zNl4kzmMIXPjG0EE9IJTUwPEXK_mL8",
+        authDomain: "valohq.firebaseapp.com",
+        databaseURL: "https://valohq-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "valohq",
+        storageBucket: "valohq.firebasestorage.app",
+        messagingSenderId: "368885437583",
+        appId: "1:368885437583:web:7124c203a9466cfc25ccfa",
+        measurementId: "G-FQRMHJ06YQ"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Your Firebase-related code goes here
+</script>
     <!-- Your JavaScript -->
     <script src="scripts.js"></script>
     <script>
