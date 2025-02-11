@@ -95,7 +95,7 @@ function fetchUserData(userId) {
         });
 }
 
-// Send Invite
+// scripts.js
 function sendInvite(toUserId) {
     const fromUserId = auth.currentUser.uid;
 
