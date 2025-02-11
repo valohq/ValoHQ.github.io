@@ -35,6 +35,44 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
+// Sign Up Function
+function signUp(email, password, displayName, riotId) {
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            console.log('User registered:', userCredential.user.email);
+            saveUserData(userCredential.user, displayName, riotId); // Save user data
+        })
+        .catch((error) => {
+            console.error('Error signing up:', error.message);
+        });
+}
+
+// Sign In Function
+function signIn(email, password) {
+    auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            console.log('User logged in:', userCredential.user.email);
+            window.location.href = '/'; // Redirect to homepage
+        })
+        .catch((error) => {
+            console.error('Error signing in:', error.message);
+        });
+}
+
+// Save User Data to Firestore
+function saveUserData(user, displayName, riotId) {
+    db.collection('users').doc(user.uid).set({
+        email: user.email,
+        displayName: displayName,
+        riotId: riotId
+    }).then(() => {
+        console.log('User data saved to Firestore');
+        window.location.href = '/'; // Redirect to homepage
+    }).catch((error) => {
+        console.error('Error saving user data:', error);
+    });
+}
+
 // Authentication Functions
 function signUp(email, password) {
     auth.createUserWithEmailAndPassword(email, password)
