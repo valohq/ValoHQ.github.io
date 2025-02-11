@@ -143,6 +143,32 @@ function showInvitePrompt(from) {
         prompt.style.display = 'none';
     });
 }
+// scripts.js
+function listenForInvites() {
+    const currentUserId = auth.currentUser.uid;
+
+    db.collection('invites')
+        .where('to', '==', currentUserId)
+        .onSnapshot((snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === 'added') {
+                    const invite = change.doc.data();
+                    console.log('New invite from:', invite.from);
+                    showInvitePrompt(invite.from);
+                }
+            });
+        });
+}
+
+// scripts.js
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        console.log('User is signed in:', user.email);
+        listenForInvites(); // Listen for invites
+    } else {
+        console.log('User is signed out');
+    }
+});
 
 // Initialize App
 function initApp() {
@@ -156,6 +182,5 @@ function initApp() {
         }
     });
 }
-
 // Run Initialization
 initApp();
