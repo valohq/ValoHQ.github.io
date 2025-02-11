@@ -67,12 +67,12 @@ function signOut() {
         });
 }
 
-// Save User Data to Firestore
-function saveUserData(user) {
+// scripts.js
+function saveUserData(user, displayName, riotId) {
     db.collection('users').doc(user.uid).set({
         email: user.email,
-        displayName: 'Taha', // Replace with user input
-        riotId: 'PATTAGOBHI#69422' // Replace with actual Riot ID
+        displayName: displayName, // User's display name
+        riotId: riotId // User's Riot ID
     }).then(() => {
         console.log('User data saved to Firestore');
     }).catch((error) => {
