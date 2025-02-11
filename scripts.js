@@ -21,13 +21,14 @@ document.getElementById('sendInviteButton').addEventListener('click', async () =
 
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAn_zNl4kzmMIXPjG0EE9IJTUwPEXK_mL8",
-    authDomain: "valohq.firebaseapp.com",
-    projectId: "valohq",
-    storageBucket: "valohq.firebasestorage.app",
-    messagingSenderId: "368885437583",
-    appId: "1:368885437583:web:7124c203a9466cfc25ccfa",
-    measurementId: "G-FQRMHJ06YQ"
+  apiKey: "AIzaSyAn_zNl4kzmMIXPjG0EE9IJTUwPEXK_mL8",
+  authDomain: "valohq.firebaseapp.com",
+  databaseURL: "https://valohq-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "valohq",
+  storageBucket: "valohq.firebasestorage.app",
+  messagingSenderId: "368885437583",
+  appId: "1:368885437583:web:7124c203a9466cfc25ccfa",
+  measurementId: "G-FQRMHJ06YQ"
   };
 
 // Initialize Firebase
