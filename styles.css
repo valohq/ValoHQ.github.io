@@ -65,6 +65,43 @@ header {
     color: #888;
 }
 
+/* Navbar Styles */
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #0f1923;
+    border-bottom: 2px solid #ff4655;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+nav a {
+    margin: 0 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+/* Search Bar Styles */
+.search-bar {
+    flex: 1;
+    margin: 0 20px;
+    max-width: 400px;
+    min-width: 150px;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #ff4655;
+    border-radius: 20px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-size: 14px;
+}
+
 /* Login Button Styles */
 .login-button {
     padding: 8px 16px;
@@ -82,6 +119,94 @@ header {
     background-color: #e03e4d;
     transform: scale(1.05);
     box-shadow: 0 0 10px rgba(255, 70, 85, 0.5);
+}
+/*Login/register page styling*/
+.login-container, .register-container {
+    background-color: #0f1923;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #ff4655;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.login-container h1, .register-container h1 {
+    color: #ff4655;
+    margin-bottom: 20px;
+}
+
+.login-container input, .register-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ff4655;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.login-container button, .register-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff4655;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.login-container button:hover, .register-container button:hover {
+    background-color: #e03e4d;
+}
+
+.login-container p, .register-container p {
+    margin-top: 10px;
+}
+
+.login-container a, .register-container a {
+    color: #ff4655;
+    text-decoration: none;
+}
+
+.login-container a:hover, .register-container a:hover {
+    text-decoration: underline;
+}
+
+/* Auth Prompt Styles */
+.auth-prompt {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #0f1923;
+    padding: 20px;
+    border: 2px solid #ff4655;
+    border-radius: 10px;
+    z-index: 1000;
+    text-align: center;
+}
+
+.auth-prompt p {
+    margin-bottom: 20px;
+}
+
+.auth-prompt button {
+    padding: 10px 20px;
+    background-color: #ff4655;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.auth-prompt button:hover {
+    background-color: #e03e4d;
 }
 
 /* Navbar Styles */
