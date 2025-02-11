@@ -11,13 +11,13 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const auth = firebase.auth();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 // Authentication Functions
 function signUp(email, password, displayName, riotId) {
-    auth.createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log('User registered:', userCredential.user.email);
             saveUserData(userCredential.user, displayName, riotId); // Save user data
@@ -28,7 +28,7 @@ function signUp(email, password, displayName, riotId) {
 }
 
 function signIn(email, password) {
-    auth.signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log('User logged in:', userCredential.user.email);
             window.location.href = '/'; // Redirect to homepage
@@ -39,7 +39,7 @@ function signIn(email, password) {
 }
 
 function signOut() {
-    auth.signOut()
+    signOut(auth)
         .then(() => {
             console.log('User signed out');
         })
@@ -50,7 +50,7 @@ function signOut() {
 
 // Save User Data to Firestore
 function saveUserData(user, displayName, riotId) {
-    db.collection('users').doc(user.uid).set({
+    setDoc(doc(db, 'users', user.uid), {
         email: user.email,
         displayName: displayName,
         riotId: riotId
@@ -64,9 +64,9 @@ function saveUserData(user, displayName, riotId) {
 
 // Fetch User Data from Firestore
 function fetchUserData(userId) {
-    db.collection('users').doc(userId).get()
+    getDoc(doc(db, 'users', userId))
         .then((doc) => {
-            if (doc.exists) {
+            if (doc.exists()) {
                 console.log('User data:', doc.data());
             } else {
                 console.error('User data not found');
@@ -81,10 +81,10 @@ function fetchUserData(userId) {
 function sendInvite(toUserId) {
     const fromUserId = auth.currentUser.uid;
 
-    db.collection('invites').add({
+    addDoc(collection(db, 'invites'), {
         from: fromUserId,
         to: toUserId,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        timestamp: serverTimestamp()
     }).then(() => {
         console.log('Invite sent');
     }).catch((error) => {
@@ -96,17 +96,16 @@ function sendInvite(toUserId) {
 function listenForInvites() {
     const currentUserId = auth.currentUser.uid;
 
-    db.collection('invites')
-        .where('to', '==', currentUserId)
-        .onSnapshot((snapshot) => {
-            snapshot.docChanges().forEach((change) => {
-                if (change.type === 'added') {
-                    const invite = change.doc.data();
-                    console.log('New invite from:', invite.from);
-                    showInvitePrompt(invite.from);
-                }
-            });
+    const q = query(collection(db, 'invites'), where('to', '==', currentUserId));
+    onSnapshot(q, (snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === 'added') {
+                const invite = change.doc.data();
+                console.log('New invite from:', invite.from);
+                showInvitePrompt(invite.from);
+            }
         });
+    });
 }
 
 // Show Invite Prompt
@@ -128,7 +127,7 @@ function showInvitePrompt(from) {
 
 // Initialize App
 function initApp() {
-    auth.onAuthStateChanged((user) => {
+    onAuthStateChanged(auth, (user) => {
         if (user) {
             console.log('User is signed in:', user.email);
             fetchUserData(user.uid); // Fetch user data
