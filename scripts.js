@@ -35,6 +35,19 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
+// scripts.js
+document.getElementById('loginButton').addEventListener('click', () => {
+    document.getElementById('authPrompt').style.display = 'block';
+});
+
+document.getElementById('newUserButton').addEventListener('click', () => {
+    window.location.href = '/register.html';
+});
+
+document.getElementById('existingUserButton').addEventListener('click', () => {
+    window.location.href = '/login.html';
+});
+
 // Sign Up Function
 function signUp(email, password, displayName, riotId) {
     auth.createUserWithEmailAndPassword(email, password)
