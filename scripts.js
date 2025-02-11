@@ -68,6 +68,18 @@ function signOut() {
 }
 
 // scripts.js
+function signUp(email, password, displayName, riotId) {
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            console.log('User registered:', userCredential.user.email);
+            saveUserData(userCredential.user, displayName, riotId); // Save user data
+        })
+        .catch((error) => {
+            console.error('Error signing up:', error.message);
+        });
+}
+
+// scripts.js
 function saveUserData(user, displayName, riotId) {
     db.collection('users').doc(user.uid).set({
         email: user.email,
