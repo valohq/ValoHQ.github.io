@@ -80,6 +80,18 @@ function signUp(email, password, displayName, riotId) {
 }
 
 // scripts.js
+document.getElementById('signUpForm').addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent page reload
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const displayName = document.getElementById('displayName').value;
+    const riotId = document.getElementById('riotId').value;
+
+    signUp(email, password, displayName, riotId);
+});
+
+// scripts.js
 function saveUserData(user, displayName, riotId) {
     db.collection('users').doc(user.uid).set({
         email: user.email,
