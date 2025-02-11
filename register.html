@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Valorant Community Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">V</div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/login.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="register-container">
+            <h1>Register</h1>
+            <form id="registerForm">
+                <input type="email" id="registerEmail" placeholder="Email" required>
+                <input type="password" id="registerPassword" placeholder="Password" required>
+                <input type="text" id="displayName" placeholder="Display Name" required>
+                <input type="text" id="riotId" placeholder="Riot ID (e.g., PATTAGOBHI#69422)" required>
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="/login.html">Login here</a>.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Made with ❤️ by Your Valorant Community</p>
+    </footer>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <!-- Your JavaScript -->
+    <script src="scripts.js"></script>
+    <script>
+        // Handle registration form submission
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent page reload
+
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const displayName = document.getElementById('displayName').value;
+            const riotId = document.getElementById('riotId').value;
+
+            signUp(email, password, displayName, riotId);
+        });
+    </script>
+</body>
+</html>
