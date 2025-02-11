@@ -127,7 +127,7 @@ function listenForInvites() {
         });
 }
 
-// Show Invite Prompt
+// scripts.js
 function showInvitePrompt(from) {
     const prompt = document.getElementById('invitePrompt');
     prompt.style.display = 'block';
