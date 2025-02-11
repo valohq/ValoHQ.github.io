@@ -65,6 +65,7 @@ header {
     color: #888;
 }
 
+/* Login Button Styles */
 .login-button {
     padding: 8px 16px;
     background-color: #ff4655;
@@ -74,10 +75,13 @@ header {
     font-size: 14px;
     cursor: pointer;
     flex-shrink: 0;
+    transition: all 0.3s ease-in-out;
 }
 
 .login-button:hover {
     background-color: #e03e4d;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 70, 85, 0.5);
 }
 
 /* Navbar Styles */
