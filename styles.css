@@ -479,3 +479,92 @@ header {
 .invite-prompt button:hover {
     background-color: #e03e4d;
 }
+
+
+/* General Styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #0f1923;
+    border-bottom: 2px solid #ff4655;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff4655;
+}
+
+nav a {
+    margin-left: 20px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #ff4655;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container, .register-container {
+    background-color: #0f1923;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #ff4655;
+    width: 300px;
+    text-align: center;
+}
+
+h1 {
+    color: #ff4655;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ff4655;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff4655;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e03e4d;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #0f1923;
+    border-top: 2px solid #ff4655;
+}
