@@ -480,19 +480,6 @@ header {
     background-color: #e03e4d;
 }
 
-
-/* General Styles */
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #1a1a1a;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
 header {
     display: flex;
     justify-content: space-between;
@@ -530,7 +517,7 @@ main {
     padding: 20px;
     border-radius: 10px;
     border: 2px solid #ff4655;
-    width: 300px;
+    width: 30px;
     text-align: center;
 }
 
@@ -539,6 +526,7 @@ h1 {
 }
 
 input {
+    overflow: hidden;
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -549,6 +537,7 @@ input {
 }
 
 button {
+    overflow: hidden;
     width: 100%;
     padding: 10px;
     background-color: #ff4655;
