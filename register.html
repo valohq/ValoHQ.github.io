@@ -19,8 +19,8 @@
         <div class="register-container">
             <h1>Register</h1>
             <form id="registerForm">
-                <input type="email" id="registerEmail" placeholder="Email" required>
-                <input type="password" id="registerPassword" placeholder="Password" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
                 <input type="text" id="displayName" placeholder="Display Name" required>
                 <input type="text" id="riotId" placeholder="Riot ID (e.g., PATTAGOBHI#69422)" required>
                 <button type="submit">Register</button>
@@ -33,19 +33,38 @@
         <p>Made with ❤️ by Your Valorant Community</p>
     </footer>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-    <!-- Your JavaScript -->
-    <script src="scripts.js"></script>
-    <script>
+    <!-- Firebase SDKs (v9+) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAn_zNl4kzmMIXPjG0EE9IJTUwPEXK_mL8",
+            authDomain: "valohq.firebaseapp.com",
+            databaseURL: "https://valohq-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "valohq",
+            storageBucket: "valohq.firebasestorage.app",
+            messagingSenderId: "368885437583",
+            appId: "1:368885437583:web:7124c203a9466cfc25ccfa",
+            measurementId: "G-FQRMHJ06YQ"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Load your scripts.js file
+        import { signUp } from './scripts.js';
+
         // Handle registration form submission
         document.getElementById('registerForm').addEventListener('submit', (e) => {
             e.preventDefault(); // Prevent page reload
 
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
             const displayName = document.getElementById('displayName').value;
             const riotId = document.getElementById('riotId').value;
 
