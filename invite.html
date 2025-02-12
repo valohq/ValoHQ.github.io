@@ -35,12 +35,10 @@
             <input type="text" id="invite-player" placeholder="Enter Player ID (e.g., GULAM E KALU)">
             <button id="sendInviteButton">Send Invite</button>
         </div>
-        <!-- invite.html -->
-<div id="invitePrompt" class="invite-prompt" style="display: none;">
-    <p><span id="inviteFrom"></span> is inviting you to play Valorant!</p>
-    <button id="acceptInvite">Accept</button>
-    <button id="rejectInvite">Reject</button>
-</div>
+        <div id="invitePrompt" class="invite-prompt" style="display: none;">
+            <p><span id="inviteFrom"></span> is inviting you to play Valorant!</p>
+            <button id="acceptInvite">Accept</button>
+            <button id="rejectInvite">Reject</button>
         </div>
     </main>
 
@@ -48,33 +46,33 @@
         <p>Made with ❤️ by Your Valorant Community</p>
     </footer>
 
-   <!-- Firebase SDKs (v9+) -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-    import { getFirestore, collection, addDoc, doc, setDoc, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+    <!-- Firebase SDKs (v9+) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
-    // Firebase Configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyAn_zNl4kzmMIXPjG0EE9IJTUwPEXK_mL8",
-        authDomain: "valohq.firebaseapp.com",
-        databaseURL: "https://valohq-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "valohq",
-        storageBucket: "valohq.firebasestorage.app",
-        messagingSenderId: "368885437583",
-        appId: "1:368885437583:web:7124c203a9466cfc25ccfa",
-        measurementId: "G-FQRMHJ06YQ"
-    };
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAn_zNl4kzmMIXPjG0EE9IJTUwPEXK_mL8",
+            authDomain: "valohq.firebaseapp.com",
+            databaseURL: "https://valohq-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "valohq",
+            storageBucket: "valohq.firebasestorage.app",
+            messagingSenderId: "368885437583",
+            appId: "1:368885437583:web:7124c203a9466cfc25ccfa",
+            measurementId: "G-FQRMHJ06YQ"
+        };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-    // Your Firebase-related code goes here
-</script>
-    <script>
-        // Add event listeners for invite system
+        // Load your scripts.js file
+        import { sendInvite, listenForInvites, showInvitePrompt } from './scripts.js';
+
+        // Handle invite form submission
         document.getElementById('sendInviteButton').addEventListener('click', () => {
             const playerId = document.getElementById('invite-player').value;
             if (!playerId) {
@@ -83,18 +81,9 @@
             }
             sendInvite(playerId);
         });
+
+        // Listen for invites
+        listenForInvites();
     </script>
-    <!--event listener added-->
-<script>
-    document.getElementById('sendInviteButton').addEventListener('click', () => {
-        const playerId = document.getElementById('invite-player').value;
-        if (!playerId) {
-            alert('Please enter a player ID.');
-            return;
-        }
-        sendInvite(playerId); // Call the sendInvite function
-    });
-</script>
-    <script src="scripts.js"></script>
 </body>
 </html>
