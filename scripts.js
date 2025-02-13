@@ -16,7 +16,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 // Authentication Functions
-function signUp(email, password, displayName, riotId) {
+export function signUp(email, password, displayName, riotId) {
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log('User registered:', userCredential.user.email);
@@ -27,7 +27,7 @@ function signUp(email, password, displayName, riotId) {
         });
 }
 
-function signIn(email, password) {
+export function signIn(email, password) {
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log('User logged in:', userCredential.user.email);
@@ -38,7 +38,7 @@ function signIn(email, password) {
         });
 }
 
-function signOut() {
+export function signOut() {
     signOut(auth)
         .then(() => {
             console.log('User signed out');
@@ -49,7 +49,7 @@ function signOut() {
 }
 
 // Save User Data to Firestore
-function saveUserData(user, displayName, riotId) {
+export function saveUserData(user, displayName, riotId) {
     setDoc(doc(db, 'users', user.uid), {
         email: user.email,
         displayName: displayName,
@@ -63,7 +63,7 @@ function saveUserData(user, displayName, riotId) {
 }
 
 // Fetch User Data from Firestore
-function fetchUserData(userId) {
+export function fetchUserData(userId) {
     getDoc(doc(db, 'users', userId))
         .then((doc) => {
             if (doc.exists()) {
@@ -78,7 +78,7 @@ function fetchUserData(userId) {
 }
 
 // Send Invite
-function sendInvite(toUserId) {
+export function sendInvite(toUserId) {
     const fromUserId = auth.currentUser.uid;
 
     addDoc(collection(db, 'invites'), {
@@ -93,7 +93,7 @@ function sendInvite(toUserId) {
 }
 
 // Listen for Invites
-function listenForInvites() {
+export function listenForInvites() {
     const currentUserId = auth.currentUser.uid;
 
     const q = query(collection(db, 'invites'), where('to', '==', currentUserId));
@@ -109,7 +109,7 @@ function listenForInvites() {
 }
 
 // Show Invite Prompt
-function showInvitePrompt(from) {
+export function showInvitePrompt(from) {
     const prompt = document.getElementById('invitePrompt');
     prompt.style.display = 'block';
     document.getElementById('inviteFrom').textContent = from;
@@ -126,7 +126,7 @@ function showInvitePrompt(from) {
 }
 
 // Initialize App
-function initApp() {
+export function initApp() {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             console.log('User is signed in:', user.email);
@@ -172,6 +172,3 @@ function initApp() {
         signIn(email, password);
     });
 }
-
-// Run Initialization
-initApp();
