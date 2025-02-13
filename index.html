@@ -42,6 +42,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { initApp } from './scripts.js';
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -60,8 +61,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Load your scripts.js file
-        import { initApp } from './scripts.js';
+        // Initialize the app
         initApp();
     </script>
 </body>
