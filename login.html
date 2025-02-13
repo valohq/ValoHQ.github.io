@@ -3,28 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Valorant Community Hub</title>
+    <title>Valorant Community Hub</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <div class="logo">V</div>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/register.html">Register</a>
-        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Find a player i.e Player#NA1">
+        </div>
+        <button class="login-button" id="loginButton">Login</button>
     </header>
 
+    <nav>
+        <a href="/">Home</a>
+        <a href="/leaderboard.html">Leaderboard</a>
+        <a href="/hall-of-shame.html">Hall of Shame</a>
+        <a href="/invite.html">Invite System</a>
+        <a href="/attendance.html">Attendance</a>
+        <a href="/match-history.html">Match History</a>
+        <a href="/memes.html">Meme Wall</a>
+        <a href="/challenges.html">Challenges</a>
+        <a href="/profiles.html">Profiles</a>
+        <a href="/events.html">Events</a>
+    </nav>
+
     <main>
-        <div class="login-container">
-            <h1>Login</h1>
-            <form id="loginForm">
-                <input type="email" id="loginEmail" placeholder="Email" required>
-                <input type="password" id="loginPassword" placeholder="Password" required>
-                <button type="submit">Login</button>
-            </form>
-            <p>Don't have an account? <a href="/register.html">Register here</a>.</p>
-        </div>
+        <h1>Welcome to the Valorant Community Hub!</h1>
+        <p>This is the homepage of your Valorant community website. Use the navigation above to explore features!</p>
     </main>
 
     <footer>
@@ -34,8 +40,9 @@
     <!-- Firebase SDKs (v9+) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { initApp } from './scripts.js';
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -54,18 +61,8 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Load your scripts.js file
-        import { signIn } from './scripts.js';
-
-        // Handle login form submission
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevent page reload
-
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            signIn(email, password);
-        });
+        // Initialize the app
+        initApp();
     </script>
 </body>
 </html>
