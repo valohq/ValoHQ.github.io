@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invite System - Valorant Community Hub</title>
+    <title>Valorant Community Hub</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -29,17 +29,8 @@
     </nav>
 
     <main>
-        <h1>Invite System</h1>
-        <div class="invite-form">
-            <label for="invite-player">Invite Player:</label>
-            <input type="text" id="invite-player" placeholder="Enter Player ID (e.g., GULAM E KALU)">
-            <button id="sendInviteButton">Send Invite</button>
-        </div>
-        <div id="invitePrompt" class="invite-prompt" style="display: none;">
-            <p><span id="inviteFrom"></span> is inviting you to play Valorant!</p>
-            <button id="acceptInvite">Accept</button>
-            <button id="rejectInvite">Reject</button>
-        </div>
+        <h1>Welcome to the Valorant Community Hub!</h1>
+        <p>This is the homepage of your Valorant community website. Use the navigation above to explore features!</p>
     </main>
 
     <footer>
@@ -49,8 +40,9 @@
     <!-- Firebase SDKs (v9+) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, serverTimestamp, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { initApp } from './scripts.js';
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -69,21 +61,8 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Load your scripts.js file
-        import { sendInvite, listenForInvites, showInvitePrompt } from './scripts.js';
-
-        // Handle invite form submission
-        document.getElementById('sendInviteButton').addEventListener('click', () => {
-            const playerId = document.getElementById('invite-player').value;
-            if (!playerId) {
-                alert('Please enter a player ID.');
-                return;
-            }
-            sendInvite(playerId);
-        });
-
-        // Listen for invites
-        listenForInvites();
+        // Initialize the app
+        initApp();
     </script>
 </body>
 </html>
