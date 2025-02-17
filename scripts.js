@@ -1,3 +1,8 @@
+// Import Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, doc, setDoc, onSnapshot, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
 // Firebase Configuration
 const firebaseConfig = {
     apiKey: "AIzaSyAn_zNl4kzmMIXPjG0EE9IJTUwPEXK_mL8",
@@ -38,7 +43,7 @@ export function signIn(email, password) {
         });
 }
 
-export function signOut() {
+export function signOutUser() {
     signOut(auth)
         .then(() => {
             console.log('User signed out');
