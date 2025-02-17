@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valorant Community Hub</title>
+    <title>Invite System - Valorant Community Hub</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -29,8 +29,17 @@
     </nav>
 
     <main>
-        <h1>Welcome to the Valorant Community Hub!</h1>
-        <p>This is the homepage of your Valorant community website. Use the navigation above to explore features!</p>
+        <h1>Invite System</h1>
+        <div class="invite-form">
+            <label for="invite-player">Invite Player:</label>
+            <input type="text" id="invite-player" placeholder="Enter Player ID (e.g., GULAM E KALU)">
+            <button id="sendInviteButton">Send Invite</button>
+        </div>
+        <div id="invitePrompt" class="invite-prompt" style="display: none;">
+            <p><span id="inviteFrom"></span> is inviting you to play Valorant!</p>
+            <button id="acceptInvite">Accept</button>
+            <button id="rejectInvite">Reject</button>
+        </div>
     </main>
 
     <footer>
@@ -39,30 +48,20 @@
 
     <!-- Firebase SDKs (v9+) -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-        import { initApp } from './scripts.js';
+        import { sendInvite, listenForInvites, showInvitePrompt } from './scripts.js';
 
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAn_zNl4kzmMIXPjG0EE9IJTUwPEXK_mL8",
-            authDomain: "valohq.firebaseapp.com",
-            databaseURL: "https://valohq-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "valohq",
-            storageBucket: "valohq.firebasestorage.app",
-            messagingSenderId: "368885437583",
-            appId: "1:368885437583:web:7124c203a9466cfc25ccfa",
-            measurementId: "G-FQRMHJ06YQ"
-        };
+        // Handle invite form submission
+        document.getElementById('sendInviteButton').addEventListener('click', () => {
+            const playerId = document.getElementById('invite-player').value;
+            if (!playerId) {
+                alert('Please enter a player ID.');
+                return;
+            }
+            sendInvite(playerId);
+        });
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // Initialize the app
-        initApp();
+        // Listen for invites
+        listenForInvites();
     </script>
 </body>
 </html>
