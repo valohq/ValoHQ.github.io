@@ -3,34 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valorant Community Hub</title>
+    <title>Login - Valorant Community Hub</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <div class="logo">V</div>
-        <div class="search-bar">
-            <input type="text" placeholder="Find a player i.e Player#NA1">
-        </div>
-        <button class="login-button" id="loginButton">Login</button>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/register.html">Register</a>
+        </nav>
     </header>
 
-    <nav>
-        <a href="/">Home</a>
-        <a href="/leaderboard.html">Leaderboard</a>
-        <a href="/hall-of-shame.html">Hall of Shame</a>
-        <a href="/invite.html">Invite System</a>
-        <a href="/attendance.html">Attendance</a>
-        <a href="/match-history.html">Match History</a>
-        <a href="/memes.html">Meme Wall</a>
-        <a href="/challenges.html">Challenges</a>
-        <a href="/profiles.html">Profiles</a>
-        <a href="/events.html">Events</a>
-    </nav>
-
     <main>
-        <h1>Welcome to the Valorant Community Hub!</h1>
-        <p>This is the homepage of your Valorant community website. Use the navigation above to explore features!</p>
+        <div class="login-container">
+            <h1>Login</h1>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="/register.html">Register here</a>.</p>
+        </div>
     </main>
 
     <footer>
@@ -39,30 +33,17 @@
 
     <!-- Firebase SDKs (v9+) -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-        import { initApp } from './scripts.js';
+        import { signIn } from './scripts.js';
 
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAn_zNl4kzmMIXPjG0EE9IJTUwPEXK_mL8",
-            authDomain: "valohq.firebaseapp.com",
-            databaseURL: "https://valohq-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "valohq",
-            storageBucket: "valohq.firebasestorage.app",
-            messagingSenderId: "368885437583",
-            appId: "1:368885437583:web:7124c203a9466cfc25ccfa",
-            measurementId: "G-FQRMHJ06YQ"
-        };
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent page reload
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
 
-        // Initialize the app
-        initApp();
+            signIn(email, password);
+        });
     </script>
 </body>
 </html>
