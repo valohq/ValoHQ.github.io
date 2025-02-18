@@ -64,6 +64,7 @@ export function signOutUser() {
     signOut(auth)
         .then(() => {
             console.log('User signed out');
+            window.location.href = '/login.html'; // Redirect to login page after sign out
         })
         .catch((error) => {
             console.error('Error signing out:', error.message);
@@ -125,7 +126,6 @@ export function listenForInvites() {
 
     if (!currentUserId) {
         console.error('User not logged in');
-        window.location.href = '/login.html'; // Redirect to login page
         return;
     }
 
@@ -165,8 +165,16 @@ export function showInvitePrompt(from) {
     });
 }
 
+// Initialize App
 export function initApp() {
     onAuthStateChanged(auth, (user) => {
+        const currentPage = window.location.pathname.split('/').pop();
+
+        // Do not redirect if the user is on the login or register page
+        if (currentPage === 'login.html' || currentPage === 'register.html') {
+            return;
+        }
+
         if (user) {
             console.log('User is signed in:', user.email);
             fetchUserData(user.uid); // Fetch user data
@@ -186,7 +194,10 @@ export function initApp() {
             }
         } else {
             console.log('User is signed out');
-            window.location.href = '/login.html'; // Redirect to login page
+            // Redirect to login page only if not already on login or register page
+            if (currentPage !== 'login.html' && currentPage !== 'register.html') {
+                window.location.href = '/login.html';
+            }
         }
     });
 }
