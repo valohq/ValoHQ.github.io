@@ -165,13 +165,25 @@ export function showInvitePrompt(from) {
     });
 }
 
-// Initialize App
 export function initApp() {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             console.log('User is signed in:', user.email);
             fetchUserData(user.uid); // Fetch user data
             listenForInvites(); // Listen for invites
+
+            // Update UI
+            const userEmailElement = document.getElementById('userEmail');
+            const loginButton = document.getElementById('loginButton');
+
+            if (userEmailElement && loginButton) {
+                userEmailElement.textContent = user.email;
+                loginButton.textContent = 'Logout';
+                loginButton.href = '#'; // Prevent default behavior
+                loginButton.addEventListener('click', () => {
+                    signOutUser();
+                });
+            }
         } else {
             console.log('User is signed out');
             window.location.href = '/login.html'; // Redirect to login page
