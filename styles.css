@@ -633,3 +633,9 @@ nav a {
 nav a:hover {
     color: #ff4655;
 }
+
+.user-email {
+    color: #ffffff;
+    margin-right: 20px;
+    font-weight: bold;
+}
