@@ -84,7 +84,12 @@ export function fetchUserData(userId) {
 
 // Send Invite
 export function sendInvite(toUserId) {
-    const fromUserId = auth.currentUser.uid;
+    const fromUserId = auth.currentUser?.uid;
+
+    if (!fromUserId) {
+        console.error('User not logged in');
+        return;
+    }
 
     addDoc(collection(db, 'invites'), {
         from: fromUserId,
@@ -99,7 +104,12 @@ export function sendInvite(toUserId) {
 
 // Listen for Invites
 export function listenForInvites() {
-    const currentUserId = auth.currentUser.uid;
+    const currentUserId = auth.currentUser?.uid;
+
+    if (!currentUserId) {
+        console.error('User not logged in');
+        return;
+    }
 
     const q = query(collection(db, 'invites'), where('to', '==', currentUserId));
     onSnapshot(q, (snapshot) => {
