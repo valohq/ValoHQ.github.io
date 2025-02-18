@@ -108,6 +108,7 @@ export function listenForInvites() {
 
     if (!currentUserId) {
         console.error('User not logged in');
+        window.location.href = '/login.html'; // Redirect to login page
         return;
     }
 
@@ -126,8 +127,15 @@ export function listenForInvites() {
 // Show Invite Prompt
 export function showInvitePrompt(from) {
     const prompt = document.getElementById('invitePrompt');
+    const inviteFrom = document.getElementById('inviteFrom');
+
+    if (!prompt || !inviteFrom) {
+        console.error('Invite prompt elements not found');
+        return;
+    }
+
+    inviteFrom.textContent = from;
     prompt.style.display = 'block';
-    document.getElementById('inviteFrom').textContent = from;
 
     document.getElementById('acceptInvite').addEventListener('click', () => {
         alert('You accepted the invite from ' + from);
@@ -149,41 +157,7 @@ export function initApp() {
             listenForInvites(); // Listen for invites
         } else {
             console.log('User is signed out');
+            window.location.href = '/login.html'; // Redirect to login page
         }
-    });
-
-    // Add event listeners for login button and auth prompt
-    document.getElementById('loginButton')?.addEventListener('click', () => {
-        document.getElementById('authPrompt').style.display = 'block';
-    });
-
-    document.getElementById('newUserButton')?.addEventListener('click', () => {
-        window.location.href = '/register.html';
-    });
-
-    document.getElementById('existingUserButton')?.addEventListener('click', () => {
-        window.location.href = '/login.html';
-    });
-
-    // Handle sign-up form submission
-    document.getElementById('signUpForm')?.addEventListener('submit', (e) => {
-        e.preventDefault(); // Prevent page reload
-
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const displayName = document.getElementById('displayName').value;
-        const riotId = document.getElementById('riotId').value;
-
-        signUp(email, password, displayName, riotId);
-    });
-
-    // Handle login form submission
-    document.getElementById('loginForm')?.addEventListener('submit', (e) => {
-        e.preventDefault(); // Prevent page reload
-
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPassword').value;
-
-        signIn(email, password);
     });
 }
