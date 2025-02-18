@@ -116,7 +116,7 @@ nav a {
 }
 
 .login-button:hover {
-    background-color: #e03e4d;
+    background-color: #0f1923;
     transform: scale(1.05);
     box-shadow: 0 0 10px rgba(255, 70, 85, 0.5);
 }
@@ -631,5 +631,5 @@ nav a {
 }
 
 nav a:hover {
-    color: #0f1923;
+    color: #ff4655;
 }
