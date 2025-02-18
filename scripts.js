@@ -121,6 +121,8 @@ export function sendInvite(toUserId) {
 }
 
 // Listen for Invites
+let unsubscribeInvites = null; // Store the unsubscribe function for the Firestore listener
+
 export function listenForInvites() {
     const currentUserId = auth.currentUser?.uid;
 
@@ -130,7 +132,7 @@ export function listenForInvites() {
     }
 
     const q = query(collection(db, 'invites'), where('to', '==', currentUserId));
-    onSnapshot(q, (snapshot) => {
+    unsubscribeInvites = onSnapshot(q, (snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === 'added') {
                 const invite = change.doc.data();
@@ -138,6 +140,8 @@ export function listenForInvites() {
                 showInvitePrompt(invite.from);
             }
         });
+    }, (error) => {
+        console.error('Error listening for invites:', error);
     });
 }
 
@@ -201,3 +205,10 @@ export function initApp() {
         }
     });
 }
+
+// Cleanup Firestore listeners when the page is unloaded
+window.addEventListener('beforeunload', () => {
+    if (unsubscribeInvites) {
+        unsubscribeInvites(); // Unsubscribe from the Firestore listener
+    }
+});
