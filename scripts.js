@@ -17,7 +17,8 @@ import {
     query, 
     where, 
     serverTimestamp,
-    getDoc 
+    getDoc,
+    getDocs 
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 // Firebase Configuration
@@ -145,6 +146,7 @@ export function listenForInvites() {
 
     const q = query(collection(db, 'invites'), where('to', '==', currentUserId));
     unsubscribeInvites = onSnapshot(q, (snapshot) => {
+        console.log('Received snapshot:', snapshot); // Log the snapshot
         snapshot.docChanges().forEach((change) => {
             if (change.type === 'added') {
                 const invite = change.doc.data();
@@ -181,6 +183,24 @@ export function showInvitePrompt(invite) {
     });
 }
 
+// Fetch recipient's UID
+export function getUserIdByEmail(email) {
+    const q = query(collection(db, 'users'), where('email', '==', email));
+    return getDocs(q)
+        .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+                return querySnapshot.docs[0].id; // Return the first matching user's UID
+            } else {
+                console.error('User not found');
+                return null;
+            }
+        })
+        .catch((error) => {
+            console.error('Error fetching user ID:', error);
+            return null;
+        });
+}
+
 // Initialize App
 export function initApp() {
     onAuthStateChanged(auth, (user) => {
@@ -203,6 +223,17 @@ export function initApp() {
                     signOutUser();
                 });
             }
+
+            // Example: Send an invite to a recipient
+            const recipientEmail = 'recipient@example.com'; // Replace with the recipient's email
+            getUserIdByEmail(recipientEmail)
+                .then((toUserId) => {
+                    if (toUserId) {
+                        sendInvite(toUserId); // Send the invite
+                    } else {
+                        console.error('Recipient not found');
+                    }
+                });
         } else {
             console.log('User is signed out');
             // Redirect to login page only if not already on login or register page
@@ -214,35 +245,9 @@ export function initApp() {
 }
 
 // Cleanup Firestore listeners when the page is unloaded
+let unsubscribeInvites = null;
 window.addEventListener('beforeunload', () => {
     if (unsubscribeInvites) {
         unsubscribeInvites(); // Unsubscribe from the Firestore listener
     }
 });
-// Fetch receipent's UID
-export function getUserIdByEmail(email) {
-    const q = query(collection(db, 'users'), where('email', '==', email));
-    return getDocs(q)
-        .then((querySnapshot) => {
-            if (!querySnapshot.empty) {
-                return querySnapshot.docs[0].id; // Return the first matching user's UID
-            } else {
-                console.error('User not found');
-                return null;
-            }
-        })
-        .catch((error) => {
-            console.error('Error fetching user ID:', error);
-            return null;
-        });
-}
-// Send Invite to Correct User
-const recipientEmail = 'recipient@example.com'; // Replace with the recipient's email
-getUserIdByEmail(recipientEmail)
-    .then((toUserId) => {
-        if (toUserId) {
-            sendInvite(toUserId); // Send the invite
-        } else {
-            console.error('Recipient not found');
-        }
-    });
