@@ -18,7 +18,7 @@ import {
     where, 
     serverTimestamp,
     getDoc,
-    getDocs 
+    getDocs // Add this import
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 // Firebase Configuration
@@ -101,6 +101,7 @@ export function fetchUserData(userId) {
         });
 }
 
+// Send Invite
 export function sendInvite(toUserId) {
     const fromUserId = auth.currentUser?.uid;
 
@@ -136,6 +137,9 @@ export function sendInvite(toUserId) {
         });
 }
 
+// Listen for Invites
+let unsubscribeInvites = null; // Store the unsubscribe function for the Firestore listener
+
 export function listenForInvites() {
     const currentUserId = auth.currentUser?.uid;
 
@@ -159,6 +163,7 @@ export function listenForInvites() {
     });
 }
 
+// Show Invite Prompt
 export function showInvitePrompt(invite) {
     const prompt = document.getElementById('invitePrompt');
     const inviteFrom = document.getElementById('inviteFrom');
@@ -245,7 +250,6 @@ export function initApp() {
 }
 
 // Cleanup Firestore listeners when the page is unloaded
-let unsubscribeInvites = null;
 window.addEventListener('beforeunload', () => {
     if (unsubscribeInvites) {
         unsubscribeInvites(); // Unsubscribe from the Firestore listener
