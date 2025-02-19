@@ -17,7 +17,7 @@ import {
     query, 
     where, 
     serverTimestamp,
-    getDoc // Add this import
+    getDoc 
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 // Firebase Configuration
@@ -173,11 +173,6 @@ export function showInvitePrompt(from) {
 export function initApp() {
     onAuthStateChanged(auth, (user) => {
         const currentPage = window.location.pathname.split('/').pop();
-
-        // Do not redirect if the user is on the login or register page
-        if (currentPage === 'login.html' || currentPage === 'register.html') {
-            return;
-        }
 
         if (user) {
             console.log('User is signed in:', user.email);
