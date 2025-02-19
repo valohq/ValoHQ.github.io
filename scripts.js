@@ -100,7 +100,6 @@ export function fetchUserData(userId) {
         });
 }
 
-// Send Invite
 export function sendInvite(toUserId) {
     const fromUserId = auth.currentUser?.uid;
 
@@ -109,19 +108,32 @@ export function sendInvite(toUserId) {
         return;
     }
 
-    addDoc(collection(db, 'invites'), {
-        from: fromUserId,
-        to: toUserId,
-        timestamp: serverTimestamp()
-    }).then(() => {
-        console.log('Invite sent');
-    }).catch((error) => {
-        console.error('Error sending invite:', error);
-    });
-}
+    // Fetch the sender's display name
+    getDoc(doc(db, 'users', fromUserId))
+        .then((doc) => {
+            if (doc.exists()) {
+                const senderData = doc.data();
+                const senderDisplayName = senderData.displayName;
 
-// Listen for Invites
-let unsubscribeInvites = null; // Store the unsubscribe function for the Firestore listener
+                // Send the invite with the sender's display name
+                addDoc(collection(db, 'invites'), {
+                    from: fromUserId,
+                    fromDisplayName: senderDisplayName, // Add sender's display name
+                    to: toUserId,
+                    timestamp: serverTimestamp()
+                }).then(() => {
+                    console.log('Invite sent');
+                }).catch((error) => {
+                    console.error('Error sending invite:', error);
+                });
+            } else {
+                console.error('Sender data not found');
+            }
+        })
+        .catch((error) => {
+            console.error('Error fetching sender data:', error);
+        });
+}
 
 export function listenForInvites() {
     const currentUserId = auth.currentUser?.uid;
@@ -136,8 +148,8 @@ export function listenForInvites() {
         snapshot.docChanges().forEach((change) => {
             if (change.type === 'added') {
                 const invite = change.doc.data();
-                console.log('New invite from:', invite.from);
-                showInvitePrompt(invite.from);
+                console.log('New invite from:', invite.fromDisplayName);
+                showInvitePrompt(invite); // Pass the entire invite object
             }
         });
     }, (error) => {
@@ -145,8 +157,7 @@ export function listenForInvites() {
     });
 }
 
-// Show Invite Prompt
-export function showInvitePrompt(from) {
+export function showInvitePrompt(invite) {
     const prompt = document.getElementById('invitePrompt');
     const inviteFrom = document.getElementById('inviteFrom');
 
@@ -155,16 +166,17 @@ export function showInvitePrompt(from) {
         return;
     }
 
-    inviteFrom.textContent = from;
+    // Display the sender's display name
+    inviteFrom.textContent = invite.fromDisplayName;
     prompt.style.display = 'block';
 
     document.getElementById('acceptInvite').addEventListener('click', () => {
-        alert('You accepted the invite from ' + from);
+        alert('You accepted the invite from ' + invite.fromDisplayName);
         prompt.style.display = 'none';
     });
 
     document.getElementById('rejectInvite').addEventListener('click', () => {
-        alert('You rejected the invite from ' + from);
+        alert('You rejected the invite from ' + invite.fromDisplayName);
         prompt.style.display = 'none';
     });
 }
@@ -207,3 +219,30 @@ window.addEventListener('beforeunload', () => {
         unsubscribeInvites(); // Unsubscribe from the Firestore listener
     }
 });
+// Fetch receipent's UID
+export function getUserIdByEmail(email) {
+    const q = query(collection(db, 'users'), where('email', '==', email));
+    return getDocs(q)
+        .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+                return querySnapshot.docs[0].id; // Return the first matching user's UID
+            } else {
+                console.error('User not found');
+                return null;
+            }
+        })
+        .catch((error) => {
+            console.error('Error fetching user ID:', error);
+            return null;
+        });
+}
+// Send Invite to Correct User
+const recipientEmail = 'recipient@example.com'; // Replace with the recipient's email
+getUserIdByEmail(recipientEmail)
+    .then((toUserId) => {
+        if (toUserId) {
+            sendInvite(toUserId); // Send the invite
+        } else {
+            console.error('Recipient not found');
+        }
+    });
